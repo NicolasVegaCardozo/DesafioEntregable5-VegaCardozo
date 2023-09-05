@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.min.css">
+    <title>Chat</title>
+</head>
+
+<body>
+    <h1>Chat</h1>
+    <div>
+        {{#each messages}}
+        <p>{{user}}: {{message}}</p>
+        {{/each}}
+    </div>
+    <form id="chatForm" action="/chat" method="POST">
+        <input type="text" name="user" placeholder="Usuario" required>
+        <input type="text" name="message" placeholder="Mensaje" required>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#chatForm').submit(function (e) {
+                e.preventDefault();
+                const user = $('[name="user"]').val();
+                const message = $('[name="message"]').val();
+
+                $.ajax({
+                    url: '/chat',
+                    method: 'POST',
+                    data: { user, message },
+                    success: function (response) {
+                        console.log(response);
+                        $('[name="user"]').val('');
+                        $('[name="message"]').val('');
+                    },
+                    error: function (error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
