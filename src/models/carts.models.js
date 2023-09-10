@@ -1,19 +1,22 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
-const cartSchema = new Schema({
-    products: [{
-        id_prod: {
-            type: Schema.Types.ObjectId, // Id autogenerado de MongoDB
-            ref: 'Product',
-            required: true
-        },
-        quantity: {
-            type: Number,
-            required: true // default: 1
-        }
-    }]
+const cartItemSchema = new Schema({
+    id_prod: {
+        type: Schema.Types.ObjectId,
+        ref: 'Product',
+        required: true,
+    },
+    quantity: {
+        type: Number,
+        required: true,
+        default: 1,
+    },
 });
 
-const cartModel = model('carts', cartSchema)
-export default cartModel
+const cartSchema = new Schema({
+    products: [cartItemSchema],
+});
+
+const cartModel = model('Cart', cartSchema);
+export default cartModel;
 

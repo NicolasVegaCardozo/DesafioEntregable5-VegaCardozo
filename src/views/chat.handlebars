@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -10,17 +10,16 @@
 
 <body>
     <h1>Chat</h1>
-    <div>
+    <div id="chat-messages">
         {{#each messages}}
         <p>{{user}}: {{message}}</p>
         {{/each}}
     </div>
-    <form id="chatForm" action="/chat" method="POST">
-        <input type="text" name="user" placeholder="Usuario" required>
-        <input type="text" name="message" placeholder="Mensaje" required>
+    <form id="chat-form">
+        <input type="text" id="user" placeholder="Usuario">
+        <input type="text" id="message" placeholder="Mensaje">
         <button type="submit">Enviar</button>
     </form>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {

@@ -1,15 +1,16 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const messageSchema = new Schema({
     user: {
         type: String,
-        required: true
+        required: true,
     },
     message: {
         type: String,
-        required: true
-    }
+        required: true,
+    },
 });
 
-const messageModel = model("message", messageSchema)
-export default messageModel
+const MessageModel = model('Message', messageSchema);
+
+export default MessageModel;

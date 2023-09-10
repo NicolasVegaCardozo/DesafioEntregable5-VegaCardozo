@@ -1,12 +1,12 @@
 import { Router } from "express";
-import productModel from "../models/products.models.js";
+import ProductModel from "../models/products.models.js";
 
 const productRouter = Router();
 
 productRouter.get('/', async (req, res) => {
     const { limit } = req.query;
     try {
-        const prods = await productModel.find().limit(Number(limit));
+        const prods = await ProductModel.find().limit(Number(limit));
         res.status(200).send({ resultado: 'OK', message: prods });
     } catch (error) {
         res.status(400).send({ error: `Error al consultar productos: ${error}` });
@@ -16,7 +16,7 @@ productRouter.get('/', async (req, res) => {
 productRouter.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
-        const prod = await productModel.findById(id);
+        const prod = await ProductModel.findById(id);
         if (prod)
             res.status(200).send({ resultado: 'OK', message: prod });
         else
@@ -30,7 +30,7 @@ productRouter.post('/', async (req, res) => {
     const { title, description, stock, code, price, category } = req.body;
 
     try {
-        const respuesta = await productModel.create({
+        const respuesta = await ProductModel.create({
             title, description, stock, code, price, category
         });
 
@@ -44,7 +44,7 @@ productRouter.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { title, description, stock, code, price, category, status } = req.body;
     try {
-        const prod = await productModel.findByIdAndUpdate(id, { title, description, stock, code, price, category, status });
+        const prod = await ProductModel.findByIdAndUpdate(id, { title, description, stock, code, price, category, status });
         if (prod)
             res.status(200).send({ resultado: 'OK', message: prod });
         else
@@ -58,7 +58,7 @@ productRouter.delete('/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        const prod = await productModel.findByIdAndDelete(id);
+        const prod = await ProductModel.findByIdAndDelete(id);
         if (prod)
             res.status(200).send({ resultado: 'OK', message: prod });
         else
